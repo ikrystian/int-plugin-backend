@@ -2,7 +2,6 @@
 
 use App\Imports\AddressImport;
 use App\Models\address;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
@@ -17,6 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 Route::get('/', function () {
     return redirect('/dashboard');
@@ -63,4 +63,8 @@ Route::middleware(['cors'])->group(function () {
             ->get()
             ->toJson();
     });
+});
+
+Route::get('/register', function() {
+    return redirect('/login');
 });
