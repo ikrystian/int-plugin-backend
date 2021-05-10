@@ -64,7 +64,3 @@ Route::middleware(['cors'])->group(function () {
             ->toJson();
     });
 });
-
-Route::get('/register', function() {
-    return redirect('/login');
-});
