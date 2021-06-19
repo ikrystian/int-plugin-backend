@@ -44,11 +44,18 @@ Route::middleware(['cors'])->group(function () {
     });
 
     Route::get('numbers/{city}/{street}', function ($city, $street) {
+        if ($street == 'null') {
+            return address::where('city', $city)
+                ->select('number', 'id')
+                ->distinct()
+                ->orderBy('number', 'asc')
+                ->get()
+                ->toJson();
+        }
         return address::where('street', $street)
+            ->select('number', 'id')
             ->where('city', $city)
-            ->select('number')
             ->distinct()
-            ->orderByRaw('LENGTH(number)', 'asc')
             ->orderBy('number', 'asc')
             ->get()
             ->toJson();
@@ -58,9 +65,14 @@ Route::middleware(['cors'])->group(function () {
         return address::where('city', $city)
             ->select('number')
             ->distinct()
-            ->orderByRaw('LENGTH(number)', 'asc')
             ->orderBy('number', 'asc')
             ->get()
             ->toJson();
     });
+
+    Route::get('data/{id}', function ($id) {
+        $data = address::find($id);
+        return $data;
+    });
+
 });
